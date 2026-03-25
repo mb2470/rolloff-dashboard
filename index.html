@@ -101,6 +101,9 @@ document.getElementById('app').innerHTML=`
 </div>
 <div class="charts-grid"><div class="chart-card full-width"><div class="chart-title">Leads by City</div><table class="city-table"><thead><tr><th>City</th><th>Leads</th><th class="city-bar-cell">Distribution</th></tr></thead><tbody>
 ${data.citySorted.slice(0,25).map(([city,count])=>'<tr><td>'+city+'</td><td class="city-count">'+count+'</td><td class="city-bar-cell"><div class="city-mini-bar"><div class="city-mini-fill" style="width:'+Math.round(count/maxCity*100)+'%"></div></div></td></tr>').join('')}
+</tbody></table></div></div>
+<div class="chart-card full-width"><div class="chart-title">Leads by Category</div><table class="city-table"><thead><tr><th>Category</th><th>Leads</th><th class="city-bar-cell">Distribution</th></tr></thead><tbody>
+${data.catSorted.map(([cat,count])=>'<tr><td>'+cat+'</td><td class="city-count">'+count+'</td><td class="city-bar-cell"><div class="city-mini-bar"><div class="city-mini-fill" style="width:'+Math.round(count/data.catSorted[0][1]*100)+'%"></div></div></td></tr>').join('')}
 </tbody></table></div></div></div>`;
 setTimeout(()=>{document.querySelectorAll('.completeness-bar').forEach(bar=>{bar.style.width=bar.dataset.target+'%'})},100);
 const growthCtx=document.getElementById('growthChart').getContext('2d');
