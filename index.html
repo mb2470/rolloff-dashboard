@@ -73,7 +73,7 @@ const withMarkdown=allRows.filter(r=>r.clean_markdown).length;
 const cities=[...new Set(allRows.map(r=>r.city).filter(Boolean))].length;
 const byCity={};allRows.forEach(r=>{if(r.city)byCity[r.city]=(byCity[r.city]||0)+1});
 const citySorted=Object.entries(byCity).sort((a,b)=>b[1]-a[1]);
-const byCat={};allRows.forEach(r=>{if(r.category){const cat=r.category.split('|')[0].trim();byCat[cat]=(byCat[cat]||0)+1}});
+const byCat={};allRows.forEach(r=>{const raw=r.category||'Uncategorized';const cat=raw.split('|')[0].trim();byCat[cat]=(byCat[cat]||0)+1});
 const catSorted=Object.entries(byCat).sort((a,b)=>b[1]-a[1]).slice(0,15);
 const byDate={};allRows.forEach(r=>{const date=r.created_at?.split('T')[0];if(date)byDate[date]=(byDate[date]||0)+1});
 let cum=0;const growth=Object.entries(byDate).sort().map(([date,count])=>{cum+=count;return{date,added:count,total:cum}});
