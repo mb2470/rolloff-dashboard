@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rolloff Lead Intelligence</title>
+<title>Rolloff Prospect Intelligence</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
@@ -81,16 +81,16 @@ return{total,withEmail,withPhone,withAddress,withMarkdown,cities,citySorted,catS
 function render(data){
 const maxCity=data.citySorted[0]?.[1]||1;
 document.getElementById('app').innerHTML=`
-<div class="header"><div class="header-top"><div><h1>Rolloff Lead Intelligence</h1><div class="subtitle">AI-powered prospecting across ${data.cities} Colorado cities</div></div><div class="live-badge"><div class="live-dot"></div>Live from Supabase</div></div></div>
+<div class="header"><div class="header-top"><div><h1>Rolloff Prospect Intelligence</h1><div class="subtitle">AI-powered prospect discovery across ${data.cities} Colorado cities</div></div><div class="live-badge"><div class="live-dot"></div>Live from Supabase</div></div></div>
 <div class="dashboard">
 <div class="kpi-row">
-<div class="kpi-card"><div class="kpi-label">Total Leads</div><div class="kpi-value">${data.total.toLocaleString()}</div><div class="kpi-sub">Across ${data.cities} cities</div></div>
-<div class="kpi-card"><div class="kpi-label">With Phone</div><div class="kpi-value">${data.withPhone.toLocaleString()}</div><div class="kpi-sub">${Math.round(data.withPhone/data.total*100)}% of leads</div></div>
-<div class="kpi-card"><div class="kpi-label">With Address</div><div class="kpi-value">${data.withAddress.toLocaleString()}</div><div class="kpi-sub">${Math.round(data.withAddress/data.total*100)}% of leads</div></div>
-<div class="kpi-card"><div class="kpi-label">With Email</div><div class="kpi-value">${data.withEmail.toLocaleString()}</div><div class="kpi-sub">${Math.round(data.withEmail/data.total*100)}% of leads</div></div>
+<div class="kpi-card"><div class="kpi-label">Total Prospects</div><div class="kpi-value">${data.total.toLocaleString()}</div><div class="kpi-sub">Across ${data.cities} cities</div></div>
+<div class="kpi-card"><div class="kpi-label">With Phone</div><div class="kpi-value">${data.withPhone.toLocaleString()}</div><div class="kpi-sub">${Math.round(data.withPhone/data.total*100)}% of prospects</div></div>
+<div class="kpi-card"><div class="kpi-label">With Address</div><div class="kpi-value">${data.withAddress.toLocaleString()}</div><div class="kpi-sub">${Math.round(data.withAddress/data.total*100)}% of prospects</div></div>
+<div class="kpi-card"><div class="kpi-label">With Email</div><div class="kpi-value">${data.withEmail.toLocaleString()}</div><div class="kpi-sub">${Math.round(data.withEmail/data.total*100)}% of prospects</div></div>
 </div>
 <div class="charts-grid">
-<div class="chart-card full-width"><div class="chart-title">Lead Growth Over Time</div><div class="chart-container"><canvas id="growthChart"></canvas></div></div>
+<div class="chart-card full-width"><div class="chart-title">Prospect Growth Over Time</div><div class="chart-container"><canvas id="growthChart"></canvas></div></div>
 <div class="chart-card"><div class="chart-title">Data Completeness</div><div class="completeness-grid">
 <div class="completeness-row"><div class="completeness-label">Phone</div><div class="completeness-bar-bg"><div class="completeness-bar orange" style="width:0%" data-target="${Math.round(data.withPhone/data.total*100)}"></div></div><div class="completeness-pct">${Math.round(data.withPhone/data.total*100)}%</div></div>
 <div class="completeness-row"><div class="completeness-label">Address</div><div class="completeness-bar-bg"><div class="completeness-bar green" style="width:0%" data-target="${Math.round(data.withAddress/data.total*100)}"></div></div><div class="completeness-pct">${Math.round(data.withAddress/data.total*100)}%</div></div>
@@ -99,15 +99,15 @@ document.getElementById('app').innerHTML=`
 </div></div>
 <div class="chart-card"><div class="chart-title">Top Categories</div><div class="chart-container"><canvas id="categoryChart"></canvas></div></div>
 </div>
-<div class="charts-grid"><div class="chart-card full-width"><div class="chart-title">Leads by City</div><table class="city-table"><thead><tr><th>City</th><th>Leads</th><th class="city-bar-cell">Distribution</th></tr></thead><tbody>
+<div class="charts-grid"><div class="chart-card full-width"><div class="chart-title">Prospects by City</div><table class="city-table"><thead><tr><th>City</th><th>Leads</th><th class="city-bar-cell">Distribution</th></tr></thead><tbody>
 ${data.citySorted.slice(0,25).map(([city,count])=>'<tr><td>'+city+'</td><td class="city-count">'+count+'</td><td class="city-bar-cell"><div class="city-mini-bar"><div class="city-mini-fill" style="width:'+Math.round(count/maxCity*100)+'%"></div></div></td></tr>').join('')}
 </tbody></table></div></div>
-<div class="chart-card full-width"><div class="chart-title">Leads by Category</div><table class="city-table"><thead><tr><th>Category</th><th>Leads</th><th class="city-bar-cell">Distribution</th></tr></thead><tbody>
+<div class="chart-card full-width"><div class="chart-title">Prospects by Category</div><table class="city-table"><thead><tr><th>Category</th><th>Leads</th><th class="city-bar-cell">Distribution</th></tr></thead><tbody>
 ${data.catSorted.map(([cat,count])=>'<tr><td>'+cat+'</td><td class="city-count">'+count+'</td><td class="city-bar-cell"><div class="city-mini-bar"><div class="city-mini-fill" style="width:'+Math.round(count/data.catSorted[0][1]*100)+'%"></div></div></td></tr>').join('')}
 </tbody></table></div></div></div>`;
 setTimeout(()=>{document.querySelectorAll('.completeness-bar').forEach(bar=>{bar.style.width=bar.dataset.target+'%'})},100);
 const growthCtx=document.getElementById('growthChart').getContext('2d');
-new Chart(growthCtx,{type:'line',data:{labels:data.growth.map(g=>g.date),datasets:[{label:'Total Leads',data:data.growth.map(g=>g.total),borderColor:'#f97316',backgroundColor:'rgba(249,115,22,0.1)',fill:true,tension:0.3,pointRadius:0,pointHitRadius:10,borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:'#111827',borderColor:'#1e2a3a',borderWidth:1,titleFont:{weight:'700'},callbacks:{label:(ctx)=>ctx.parsed.y.toLocaleString()+' leads'}}},scales:{x:{grid:{display:false},ticks:{maxTicksLimit:8,font:{size:11}}},y:{grid:{color:'#1e2a3a'},ticks:{font:{size:11},callback:v=>v.toLocaleString()}}}}});
+new Chart(growthCtx,{type:'line',data:{labels:data.growth.map(g=>g.date),datasets:[{label:'Total Prospects',data:data.growth.map(g=>g.total),borderColor:'#f97316',backgroundColor:'rgba(249,115,22,0.1)',fill:true,tension:0.3,pointRadius:0,pointHitRadius:10,borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:'#111827',borderColor:'#1e2a3a',borderWidth:1,titleFont:{weight:'700'},callbacks:{label:(ctx)=>ctx.parsed.y.toLocaleString()+' prospects'}}},scales:{x:{grid:{display:false},ticks:{maxTicksLimit:8,font:{size:11}}},y:{grid:{color:'#1e2a3a'},ticks:{font:{size:11},callback:v=>v.toLocaleString()}}}}});
 const catColors=['#f97316','#22c55e','#3b82f6','#a855f7','#eab308','#ef4444','#06b6d4','#ec4899','#f59e0b','#8b5cf6','#14b8a6','#f43f5e','#6366f1','#84cc16','#0ea5e9'];
 const catCtx=document.getElementById('categoryChart').getContext('2d');
 new Chart(catCtx,{type:'doughnut',data:{labels:data.catSorted.map(([cat])=>cat),datasets:[{data:data.catSorted.map(([,count])=>count),backgroundColor:catColors.slice(0,data.catSorted.length),borderWidth:0,hoverOffset:8}]},options:{responsive:true,maintainAspectRatio:false,cutout:'65%',plugins:{legend:{position:'right',labels:{boxWidth:10,padding:8,font:{size:11}}},tooltip:{backgroundColor:'#111827',borderColor:'#1e2a3a',borderWidth:1}}}})}
