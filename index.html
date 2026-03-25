@@ -59,8 +59,8 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background-i
 <body>
 <div id="app"><div class="loading"><div class="loading-spinner"></div>Loading live data...</div></div>
 <script>
-const SUPABASE_URL= + SUPABASE_URL + ;
-const SUPABASE_ANON_KEY= + SUPABASE_ANON_KEY + ;
+const SUPABASE_URL='REPLACE_SUPABASE_URL';
+const SUPABASE_ANON_KEY='REPLACE_SUPABASE_ANON_KEY';
 const sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
 Chart.defaults.color='#64748b';Chart.defaults.borderColor='#1e2a3a';Chart.defaults.font.family="'DM Sans',sans-serif";
 async function loadData(){
